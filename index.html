@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testing my new portfolio</title>
+    <title>Dev Portfolio | NextUI Style</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #0072F5;
             --secondary: #7828C8;
+            --text: #ECEDEE;
+            --background: #000000;
+            --card-bg: #16181A;
+            --nav-bg: rgba(22, 24, 26, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] {
             --text: #11181C;
             --background: #ffffff;
             --card-bg: #f5f5f5;
+            --nav-bg: rgba(255, 255, 255, 0.8);
+            --border: rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -19,6 +29,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body {
@@ -33,16 +44,30 @@
             padding: 0 2rem;
         }
 
+        /* Theme Toggle */
+        .theme-toggle {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+        }
+
         /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--nav-bg);
             backdrop-filter: blur(10px);
             z-index: 1000;
             padding: 1rem 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border);
         }
 
         .nav-content {
@@ -59,10 +84,15 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         .nav-links a {
             color: var(--text);
             text-decoration: none;
-            margin-left: 2rem;
             transition: color 0.3s ease;
         }
 
@@ -86,7 +116,7 @@
 
         .hero p {
             font-size: 1.2rem;
-            color: #666;
+            color: color-mix(in srgb, var(--text) 80%, transparent);
             max-width: 600px;
             margin: 0 auto 2rem;
         }
@@ -94,6 +124,12 @@
         /* Projects Grid */
         .projects {
             padding: 4rem 0;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
         }
 
         .projects-grid {
@@ -104,10 +140,10 @@
         }
 
         .project-card {
-            background: var(--background);
+            background: var(--card-bg);
             border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
@@ -117,15 +153,17 @@
 
         .project-image {
             height: 200px;
-            background: #ddd;
+            background: var(--background);
             border-radius: 8px;
             margin-bottom: 1rem;
+            border: 1px solid var(--border);
         }
 
         .project-tags {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
 
         .tag {
@@ -150,6 +188,8 @@
         .btn-primary {
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary:hover {
@@ -176,24 +216,35 @@
         input, textarea {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid #ddd;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
             border-radius: 8px;
             font-size: 1rem;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 114, 245, 0.1);
+            resize: vertical;
         }
 
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                gap: 1rem;
             }
 
             .hero h1 {
                 font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links a {
+                display: none;
             }
         }
     </style>
@@ -203,9 +254,12 @@
         <div class="container nav-content">
             <div class="logo">DevPort</div>
             <div class="nav-links">
-                <a href="#about">About</a>
                 <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
                 <a href="#contact">Contact</a>
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <span class="theme-icon">🌙</span>
+                </div>
             </div>
         </div>
     </nav>
@@ -213,8 +267,8 @@
     <section class="hero">
         <div class="container">
             <h1>Full Stack Developer</h1>
-            <p>Building beautiful and functional web experiences with modern technologies</p>
-            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <p>Building modern web applications with cutting-edge technologies</p>
+            <a href="#contact" class="btn btn-primary">Get in Touch</a>
         </div>
     </section>
 
@@ -222,38 +276,74 @@
         <div class="container">
             <h2>Featured Projects</h2>
             <div class="projects-grid">
-                <!-- Repeat this card for each project -->
                 <div class="project-card">
                     <div class="project-image"></div>
-                    <h3>Project Title</h3>
+                    <h3>E-Commerce Platform</h3>
                     <div class="project-tags">
                         <span class="tag">React</span>
                         <span class="tag">Node.js</span>
                         <span class="tag">MongoDB</span>
                     </div>
-                    <p>Project description goes here. Briefly explain what the project does and its key features.</p>
+                    <p>A full-stack e-commerce solution with payment integration and admin dashboard.</p>
                 </div>
-                <!-- Add more project cards -->
+                <div class="project-card">
+                    <div class="project-image"></div>
+                    <h3>Task Management App</h3>
+                    <div class="project-tags">
+                        <span class="tag">Next.js</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Firebase</span>
+                    </div>
+                    <p>Real-time collaborative task management application with user authentication.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-image"></div>
+                    <h3>Portfolio Generator</h3>
+                    <div class="project-tags">
+                        <span class="tag">Svelte</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">AWS</span>
+                    </div>
+                    <p>Automated portfolio generator with CI/CD pipeline and cloud deployment.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="contact" class="contact">
         <div class="container">
-            <h2>Get In Touch</h2>
+            <h2>Contact Me</h2>
             <form class="contact-form">
                 <div class="input-group">
-                    <input type="text" placeholder="Name">
+                    <input type="text" placeholder="Name" required>
                 </div>
                 <div class="input-group">
-                    <input type="email" placeholder="Email">
+                    <input type="email" placeholder="Email" required>
                 </div>
                 <div class="input-group">
-                    <textarea rows="5" placeholder="Message"></textarea>
+                    <textarea rows="5" placeholder="Your Message" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
         </div>
     </section>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const theme = html.getAttribute('data-theme');
+            const newTheme = theme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const themeIcon = document.querySelector('.theme-icon');
+            themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.querySelector('.theme-icon').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+    </script>
 </body>
 </html>
