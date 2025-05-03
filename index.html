@@ -3,39 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Portfolio | NextUI Style</title>
+    <title>Testing again</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #0072F5;
-            --secondary: #7828C8;
-            --text: #ECEDEE;
-            --background: #000000;
-            --card-bg: #16181A;
-            --nav-bg: rgba(22, 24, 26, 0.8);
-            --border: rgba(255, 255, 255, 0.1);
+            --primary: hsl(210, 100%, 60%);
+            --secondary: hsl(270, 50%, 60%);
+            --text: hsl(0, 0%, 95%);
+            --background: hsl(240, 6%, 10%);
+            --surface: hsl(240, 5%, 15%);
+            --border: hsl(0, 0%, 20%);
+            --nav-bg: hsla(240, 5%, 15%, 0.95);
+            --glass: hsla(240, 5%, 15%, 0.5);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         [data-theme="light"] {
-            --text: #11181C;
-            --background: #ffffff;
-            --card-bg: #f5f5f5;
-            --nav-bg: rgba(255, 255, 255, 0.8);
-            --border: rgba(0, 0, 0, 0.1);
+            --text: hsl(240, 6%, 10%);
+            --background: hsl(0, 0%, 98%);
+            --surface: hsl(0, 0%, 100%);
+            --border: hsl(0, 0%, 90%);
+            --nav-bg: hsla(0, 0%, 100%, 0.95);
+            --glass: hsla(0, 0%, 100%, 0.5);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Inter', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--background);
+            background: var(--background);
             color: var(--text);
             line-height: 1.6;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
         .container {
@@ -46,16 +51,25 @@
 
         /* Theme Toggle */
         .theme-toggle {
-            position: relative;
             width: 40px;
             height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
             cursor: pointer;
-            background: var(--card-bg);
+            background: var(--surface);
             border: 1px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text);
         }
 
         /* Navigation */
@@ -64,7 +78,7 @@
             top: 0;
             width: 100%;
             background: var(--nav-bg);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             z-index: 1000;
             padding: 1rem 0;
             border-bottom: 1px solid var(--border);
@@ -74,132 +88,120 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 2rem;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .nav-links a {
             color: var(--text);
             text-decoration: none;
-            transition: color 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
 
         .nav-links a:hover {
-            color: var(--primary);
+            background: var(--glass);
         }
 
         /* Hero Section */
         .hero {
-            padding: 8rem 0 4rem;
+            padding: 12rem 0 6rem;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
+            line-height: 1.1;
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -1.5px;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            color: color-mix(in srgb, var(--text) 80%, transparent);
+            font-size: 1.25rem;
+            color: color-mix(in srgb, var(--text) 70%, transparent);
             max-width: 600px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 3rem;
+            font-weight: 400;
         }
 
         /* Projects Grid */
         .projects {
-            padding: 4rem 0;
+            padding: 6rem 0;
         }
 
         h2 {
             font-size: 2.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             text-align: center;
+            letter-spacing: -1px;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
 
         .project-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
         }
 
         .project-image {
-            height: 200px;
+            height: 240px;
             background: var(--background);
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
             border: 1px solid var(--border);
+            overflow: hidden;
         }
 
         .project-tags {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
         .tag {
-            background: rgba(0, 114, 245, 0.1);
+            background: color-mix(in srgb, var(--primary) 10%, transparent);
             color: var(--primary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.75rem 1.5rem;
+            padding: 0.375rem 1rem;
             border-radius: 8px;
+            font-size: 0.85rem;
             font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
         }
 
         /* Contact Section */
         .contact {
-            padding: 4rem 0;
+            padding: 6rem 0;
             text-align: center;
         }
 
@@ -215,22 +217,57 @@
 
         input, textarea {
             width: 100%;
-            padding: 0.75rem;
-            background: var(--card-bg);
+            padding: 1rem;
+            background: var(--surface);
             border: 1px solid var(--border);
             color: var(--text);
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 1rem;
-            resize: vertical;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
         @media (max-width: 768px) {
             .nav-links {
-                gap: 1rem;
+                display: none;
+            }
+
+            .hero {
+                padding: 8rem 0 4rem;
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
             h2 {
@@ -240,11 +277,11 @@
 
         @media (max-width: 480px) {
             .container {
-                padding: 0 1rem;
+                padding: 0 1.5rem;
             }
             
-            .nav-links a {
-                display: none;
+            .project-card {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -252,13 +289,15 @@
 <body>
     <nav>
         <div class="container nav-content">
-            <div class="logo">DevPort</div>
+            <div class="logo">A.S.</div>
             <div class="nav-links">
-                <a href="#projects">Projects</a>
+                <a href="#projects">Work</a>
                 <a href="#skills">Skills</a>
                 <a href="#contact">Contact</a>
                 <div class="theme-toggle" onclick="toggleTheme()">
-                    <span class="theme-icon">🌙</span>
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path class="theme-icon" d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-14v4m-8 8H2m4.3-10.7L4.9 5.1m12.8 12.8l1.4 1.4M20 12h4m-2 8.7l-1.4-1.4M12 22v-4"/>
+                    </svg>
                 </div>
             </div>
         </div>
@@ -266,45 +305,52 @@
 
     <section class="hero">
         <div class="container">
-            <h1>Full Stack Developer</h1>
-            <p>Building modern web applications with cutting-edge technologies</p>
-            <a href="#contact" class="btn btn-primary">Get in Touch</a>
+            <h1>Digital Craftsman</h1>
+            <p>Building immersive experiences through code and design</p>
+            <div style="margin-top: 3rem;">
+                <a href="#contact" class="btn btn-primary">
+                    Let's Connect
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M4 12h16m-7-7l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
         </div>
     </section>
 
     <section id="projects" class="projects">
         <div class="container">
-            <h2>Featured Projects</h2>
+            <h2>Selected Works</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image"></div>
-                    <h3>E-Commerce Platform</h3>
+                    <h3>Neural Platform</h3>
                     <div class="project-tags">
-                        <span class="tag">React</span>
-                        <span class="tag">Node.js</span>
-                        <span class="tag">MongoDB</span>
+                        <span class="tag">AI/ML</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">TensorFlow</span>
                     </div>
-                    <p>A full-stack e-commerce solution with payment integration and admin dashboard.</p>
+                    <p>Machine learning platform with real-time analytics and model visualization.</p>
                 </div>
                 <div class="project-card">
                     <div class="project-image"></div>
-                    <h3>Task Management App</h3>
+                    <h3>Arc Design System</h3>
+                    <div class="project-tags">
+                        <span class="tag">Figma</span>
+                        <span class="tag">React</span>
+                        <span class="tag">Storybook</span>
+                    </div>
+                    <p>Modular design system for enterprise-scale applications.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-image"></div>
+                    <h3>Flow Commerce</h3>
                     <div class="project-tags">
                         <span class="tag">Next.js</span>
-                        <span class="tag">TypeScript</span>
-                        <span class="tag">Firebase</span>
+                        <span class="tag">GraphQL</span>
+                        <span class="tag">Shopify</span>
                     </div>
-                    <p>Real-time collaborative task management application with user authentication.</p>
-                </div>
-                <div class="project-card">
-                    <div class="project-image"></div>
-                    <h3>Portfolio Generator</h3>
-                    <div class="project-tags">
-                        <span class="tag">Svelte</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">AWS</span>
-                    </div>
-                    <p>Automated portfolio generator with CI/CD pipeline and cloud deployment.</p>
+                    <p>Headless e-commerce solution with custom checkout flow.</p>
                 </div>
             </div>
         </div>
@@ -312,7 +358,7 @@
 
     <section id="contact" class="contact">
         <div class="container">
-            <h2>Contact Me</h2>
+            <h2>Get in Touch</h2>
             <form class="contact-form">
                 <div class="input-group">
                     <input type="text" placeholder="Name" required>
@@ -323,7 +369,12 @@
                 <div class="input-group">
                     <textarea rows="5" placeholder="Your Message" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
+                <button type="submit" class="btn btn-primary">
+                    Send Message
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M22 2L11 13m5 0l6-6-6 6 6 6M2 22l3.5-3.5"/>
+                    </svg>
+                </button>
             </form>
         </div>
     </section>
@@ -337,13 +388,14 @@
             localStorage.setItem('theme', newTheme);
             
             const themeIcon = document.querySelector('.theme-icon');
-            themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+            themeIcon.style.transform = `rotate(${newTheme === 'dark' ? '0' : '180deg'})`;
         }
 
         // Initialize theme
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
-        document.querySelector('.theme-icon').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+        document.querySelector('.theme-icon').style.transform = 
+            savedTheme === 'dark' ? 'rotate(0)' : 'rotate(180deg)';
     </script>
 </body>
 </html>
